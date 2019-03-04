@@ -4,6 +4,8 @@
 #include <string>
 #include <thread>
 #include <deque>
+#include "circular_buffer.h"
+
 class CAudioNet
 {
 public:
@@ -12,7 +14,6 @@ public:
 
     int Connect();
     int Start();
-    std::vector<char>* GetBuffer();
     void Render(int count, char*);
     void Close();
 
@@ -28,8 +29,7 @@ private:
     int _port;
     bool _auto_reconnect;
     int _auto_reconnect_tries;
-    std::vector<char>* _buffer;
-    std::atomic<int> _buffer_size;
+    circular_buffer<char>* _buffer;
 
     int _tcp_socket = -1;
     std::thread _thread;
