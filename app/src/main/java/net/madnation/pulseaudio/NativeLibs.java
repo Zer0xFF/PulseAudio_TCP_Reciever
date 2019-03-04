@@ -7,7 +7,7 @@ public class NativeLibs
 		System.loadLibrary("native-lib");
 	}
 
-	public static native int Start();
+	public static native int Start(String text, int port);
 
 	public static native void Stop();
 

@@ -8,9 +8,10 @@ CAudioNet *audioNet;
 CNativeAudio *nativeAudio;
 CNativeAudio_Callback *audioCallback;
 
-extern "C" JNIEXPORT jint JNICALL Java_net_madnation_pulseaudio_NativeLibs_Start(JNIEnv *env, jobject obj /*unused*/)
+extern "C" JNIEXPORT jint JNICALL Java_net_madnation_pulseaudio_NativeLibs_Start(JNIEnv *env, jobject obj /*unused*/, jstring hostString, jint port)
 {
-    audioNet = new CAudioNet("192.168.0.87", 8000, true, 5);
+    auto dirPath = env->GetStringUTFChars(hostString, 0);
+    audioNet = new CAudioNet(dirPath, port, true, 5);
     if(int res = audioNet->Connect() != 0)
     {
         audioNet->Close();
